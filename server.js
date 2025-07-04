@@ -19,7 +19,8 @@ app.use(cookieParser());
 app.use(cors({
     origin: [
         'http://localhost:3000',
-        'https://superadmin-admin-user-dashboard-fro.vercel.app'
+        'https://superadmin-admin-user-dashboard-fro.vercel.app',
+        'https://blogs-dashboard-frontend.vercel.app/'
     ],
     credentials: true, // important to allow cookies
 }));
