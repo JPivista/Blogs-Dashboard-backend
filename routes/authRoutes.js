@@ -3,7 +3,7 @@ const router = express.Router();
 const { register, login, logout } = require('../controllers/authController');
 const protect = require('../middlewares/authMiddleware');
 const roleMiddleware = require('../middlewares/roleMiddleware');
-
+console.log("coming here");
 // Auth
 router.post('/login', login); // IP restriction removed for simplicity
 router.post('/logout', logout);
