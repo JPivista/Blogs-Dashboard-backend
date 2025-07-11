@@ -19,6 +19,7 @@ app.use(cookieParser());
 app.use(cors({
     origin: [
         'http://localhost:3000',
+        'http://localhost:3001',
         'https://superadmin-admin-user-dashboard-fro.vercel.app',
         'https://blogs-dashboard-frontend.vercel.app'
     ],
@@ -33,12 +34,14 @@ const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const blogRoutes = require('./routes/blogRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
+const leadRoutes = require('./routes/leadRoutes');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/uploads', express.static(require('path').join(__dirname, 'uploads')));
 app.use('/api/blogs', blogRoutes);
 app.use('/api/categories', categoryRoutes);
+app.use('/leads', leadRoutes);
 
 
 // Start server
