@@ -22,7 +22,8 @@ app.use(cors({
         'http://localhost:3001',
         'https://superadmin-admin-user-dashboard-fro.vercel.app',
         'https://blogs-dashboard-frontend.vercel.app',
-        'https://staging.nypunyaaesthetics.com/'
+        'https://staging.nypunyaaesthetics.com/',
+        'https://staging.nypunyaaesthetics.com',
     ],
     credentials: true, // important to allow cookies
 }));
