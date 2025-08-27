@@ -19,11 +19,12 @@ app.use(cookieParser());
 app.use(cors({
     origin: [
         'http://localhost:3000',
-        'http://localhost:3001',
+        'http://localhost:4001',
         'https://superadmin-admin-user-dashboard-fro.vercel.app',
         'https://blogs-dashboard-frontend.vercel.app',
         'https://staging.nypunyaaesthetics.com/',
         'https://staging.nypunyaaesthetics.com',
+        'https://dashboard.nypunyaaesthetics.com',
     ],
     credentials: true, // important to allow cookies
 }));
