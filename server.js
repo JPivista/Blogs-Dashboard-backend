@@ -37,6 +37,7 @@ const userRoutes = require('./routes/userRoutes');
 const blogRoutes = require('./routes/blogRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
 const leadRoutes = require('./routes/leadRoutes');
+const seoMetadataRoutes = require('./routes/seoMetadataRoutes');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
@@ -44,10 +45,11 @@ app.use('/uploads', express.static(require('path').join(__dirname, 'uploads')));
 app.use('/api/blogs', blogRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/leads', leadRoutes);
+app.use('/api/seo-metadata', seoMetadataRoutes);
 
 
 // Start server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 7010;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });

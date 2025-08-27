@@ -25,6 +25,10 @@ const userSchema = new mongoose.Schema(
             enum: ['superadmin', 'admin', 'user'],
             default: 'user',
         },
+        isActive: {
+            type: Boolean,
+            default: true,
+        },
         lastLogin: {
             type: Date,
             default: null,
