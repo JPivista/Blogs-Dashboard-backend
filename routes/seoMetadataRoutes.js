@@ -47,28 +47,6 @@ const upload = multer({
     }
 });
 
-// Debug middleware to log request details
-const debugMiddleware = (req, res, next) => {
-    console.log('=== SEO Metadata Request Debug ===');
-    console.log('Method:', req.method);
-    console.log('URL:', req.url);
-    console.log('Headers:', req.headers);
-    console.log('Body:', req.body);
-    console.log('Files:', req.files);
-    console.log('File:', req.file);
-    console.log('================================');
-    next();
-};
-
-// Test route to verify backend is working
-router.get('/test', (req, res) => {
-    res.json({
-        success: true,
-        message: 'SEO Metadata backend is working',
-        timestamp: new Date().toISOString()
-    });
-});
-
 // Get SEO metadata by page identifier (Public route for frontend)
 router.get('/page/:pageIdentifier', getSeoMetadataByPage);
 
@@ -91,7 +69,6 @@ router.use((req, res, next) => {
 // Create new SEO metadata (Admin/Superadmin only)
 router.post('/',
     checkRole(['admin', 'superadmin']),
-    debugMiddleware,
     upload.single('socialMediaImage'),
     createSeoMetadata
 );
@@ -99,14 +76,12 @@ router.post('/',
 // Get all SEO metadata with pagination and search
 router.get('/',
     checkRole(['admin', 'superadmin']),
-    debugMiddleware,
     getAllSeoMetadata
 );
 
 // Update SEO metadata (Admin/Superadmin only)
 router.put('/:id',
     checkRole(['admin', 'superadmin']),
-    debugMiddleware,
     upload.single('socialMediaImage'),
     updateSeoMetadata
 );

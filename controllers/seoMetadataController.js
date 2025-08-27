@@ -15,9 +15,6 @@ try {
 // Create new SEO metadata
 const createSeoMetadata = async (req, res) => {
     try {
-        console.log('Request body:', req.body);
-        console.log('Request file:', req.file);
-
         const {
             pageIdentifier,
             pageName,
@@ -47,24 +44,12 @@ const createSeoMetadata = async (req, res) => {
                     socialMediaImage = uploadResult.secure_url;
                 } catch (error) {
                     console.error('Cloudinary upload failed:', error);
-                    // Fallback to local storage - use full URL
-                    const baseUrl = `${req.protocol}://${req.get('host')}`;
-                    socialMediaImage = `${baseUrl}/uploads/seo-images/${path.basename(req.file.path)}`;
+                    // Fallback to local storage
+                    socialMediaImage = `/uploads/seo-images/${path.basename(req.file.path)}`;
                 }
             } else {
-                // Use local file storage - use full URL
-                const baseUrl = `${req.protocol}://${req.get('host')}`;
-                socialMediaImage = `${baseUrl}/uploads/seo-images/${path.basename(req.file.path)}`;
-            }
-        }
-
-        // Parse keywords if it's a string
-        let parsedKeywords = [];
-        if (keywords) {
-            if (typeof keywords === 'string') {
-                parsedKeywords = keywords.split(',').map(k => k.trim()).filter(Boolean);
-            } else if (Array.isArray(keywords)) {
-                parsedKeywords = keywords;
+                // Use local file storage
+                socialMediaImage = `/uploads/seo-images/${path.basename(req.file.path)}`;
             }
         }
 
@@ -76,7 +61,7 @@ const createSeoMetadata = async (req, res) => {
             ogTitle: ogTitle || metaTitle,
             ogDescription: ogDescription || metaDescription,
             socialMediaImage,
-            keywords: parsedKeywords,
+            keywords: keywords || [],
             canonicalUrl,
             createdBy: req.user.id
         });
@@ -214,9 +199,6 @@ const getSeoMetadataById = async (req, res) => {
 // Update SEO metadata
 const updateSeoMetadata = async (req, res) => {
     try {
-        console.log('Update request body:', req.body);
-        console.log('Update request file:', req.file);
-
         const { id } = req.params;
         const {
             pageName,
@@ -245,24 +227,12 @@ const updateSeoMetadata = async (req, res) => {
                     seoMetadata.socialMediaImage = uploadResult.secure_url;
                 } catch (error) {
                     console.error('Cloudinary upload failed:', error);
-                    // Fallback to local storage - use full URL
-                    const baseUrl = `${req.protocol}://${req.get('host')}`;
-                    seoMetadata.socialMediaImage = `${baseUrl}/uploads/seo-images/${path.basename(req.file.path)}`;
+                    // Fallback to local storage
+                    seoMetadata.socialMediaImage = `/uploads/seo-images/${path.basename(req.file.path)}`;
                 }
             } else {
-                // Use local file storage - use full URL
-                const baseUrl = `${req.protocol}://${req.get('host')}`;
-                seoMetadata.socialMediaImage = `${baseUrl}/uploads/seo-images/${path.basename(req.file.path)}`;
-            }
-        }
-
-        // Parse keywords if it's a string
-        let parsedKeywords = [];
-        if (keywords !== undefined) {
-            if (typeof keywords === 'string') {
-                parsedKeywords = keywords.split(',').map(k => k.trim()).filter(Boolean);
-            } else if (Array.isArray(keywords)) {
-                parsedKeywords = keywords;
+                // Use local file storage
+                seoMetadata.socialMediaImage = `/uploads/seo-images/${path.basename(req.file.path)}`;
             }
         }
 
@@ -272,7 +242,7 @@ const updateSeoMetadata = async (req, res) => {
         if (metaDescription !== undefined) seoMetadata.metaDescription = metaDescription;
         if (ogTitle !== undefined) seoMetadata.ogTitle = ogTitle;
         if (ogDescription !== undefined) seoMetadata.ogDescription = ogDescription;
-        if (keywords !== undefined) seoMetadata.keywords = parsedKeywords;
+        if (keywords !== undefined) seoMetadata.keywords = keywords;
         if (canonicalUrl !== undefined) seoMetadata.canonicalUrl = canonicalUrl;
         if (isActive !== undefined) seoMetadata.isActive = isActive;
 
